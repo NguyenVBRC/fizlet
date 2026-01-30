@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { createClient } from "@/utils/supabase/client";
 import styles from "./create.module.css";
 
 type Question = {
@@ -14,12 +15,16 @@ export default function CreatePracticeTest() {
   const [jsonInput, setJsonInput] = useState("");
   const [error, setError] = useState("");
   const [questions, setQuestions] = useState<Question[] | null>(null);
-  const [downloadUrl, setDownloadUrl] = useState("");
+  const [isInserting, setIsInserting] = useState(false);
+  const [insertSuccess, setInsertSuccess] = useState(false);
+  const [insertError, setInsertError] = useState("");
 
   const handleInputChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     setJsonInput(e.target.value);
     setError("");
     setQuestions(null);
+    setInsertSuccess(false);
+    setInsertError("");
   };
 
   const handleValidate = () => {
@@ -43,17 +48,55 @@ export default function CreatePracticeTest() {
 
       setQuestions(parsed);
       setError("");
-
-      // Create a downloadable JSON file
-      const blob = new Blob([JSON.stringify(parsed, null, 2)], {
-        type: "application/json",
-      });
-      const url = URL.createObjectURL(blob);
-      setDownloadUrl(url);
     } catch (err) {
       setQuestions(null);
       setError(err instanceof Error ? err.message : "Invalid JSON");
-      setDownloadUrl("");
+      setInsertSuccess(false);
+    }
+  };
+
+  const handleInsertToSupabase = async () => {
+    if (!questions) return;
+
+    setIsInserting(true);
+    setInsertError("");
+    setInsertSuccess(false);
+
+    try {
+      const supabase = createClient();
+
+      // Insert questions into the practice-tests table
+      const { error: supabaseError } = await supabase
+        .from("practice-tests")
+        .insert(
+          questions.map((q) => ({
+            question: q.question,
+            options: q.options,
+            answer: q.answer,
+            explanation: q.explanation,
+          })),
+        );
+
+      if (supabaseError) {
+        console.log(supabaseError);
+        throw supabaseError;
+      }
+
+      setInsertSuccess(true);
+
+      // Clear the page after successful insertion
+      setTimeout(() => {
+        setJsonInput("");
+        setQuestions(null);
+        setInsertSuccess(false);
+        setInsertError("");
+      }, 2000); // Clear after 2 seconds to show success message
+    } catch (err) {
+      setInsertError(
+        err instanceof Error ? err.message : "Failed to insert questions",
+      );
+    } finally {
+      setIsInserting(false);
     }
   };
 
@@ -99,15 +142,30 @@ export default function CreatePracticeTest() {
               </div>
             </div>
           ))}
-          {downloadUrl && (
-            <a
-              href={downloadUrl}
-              download="practice-questions.json"
-              className={styles.downloadButton}
-              style={{ display: "inline-block", marginTop: 16 }}
+          <div className={styles.buttonRow} style={{ marginTop: 16 }}>
+            <button
+              onClick={handleInsertToSupabase}
+              disabled={isInserting}
+              className={styles.validateButton}
             >
-              Download JSON File
-            </a>
+              {isInserting ? "Inserting..." : "Insert to Supabase"}
+            </button>
+          </div>
+          {insertSuccess && (
+            <div
+              className={styles.success}
+              style={{ color: "green", marginTop: 8 }}
+            >
+              Successfully inserted {questions.length} questions into Supabase!
+            </div>
+          )}
+          {insertError && (
+            <div
+              className={styles.error}
+              style={{ color: "red", marginTop: 8 }}
+            >
+              Failed to insert questions: {insertError}
+            </div>
           )}
         </div>
       )}
