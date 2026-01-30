@@ -1,7 +1,6 @@
 "use client";
 
 import { useState } from "react";
-import { createClient } from "@/utils/supabase/client";
 import styles from "./create.module.css";
 
 type Question = {
@@ -12,12 +11,19 @@ type Question = {
 };
 
 export default function CreatePracticeTest() {
+  const [title, setTitle] = useState("");
   const [jsonInput, setJsonInput] = useState("");
   const [error, setError] = useState("");
   const [questions, setQuestions] = useState<Question[] | null>(null);
   const [isInserting, setIsInserting] = useState(false);
   const [insertSuccess, setInsertSuccess] = useState(false);
   const [insertError, setInsertError] = useState("");
+
+  const handleTitleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setTitle(e.target.value);
+    setInsertSuccess(false);
+    setInsertError("");
+  };
 
   const handleInputChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     setJsonInput(e.target.value);
@@ -55,45 +61,39 @@ export default function CreatePracticeTest() {
     }
   };
 
-  const handleInsertToSupabase = async () => {
-    if (!questions) return;
-
+  const handleSaveToLocalStorage = () => {
+    if (!questions || !title.trim()) {
+      setInsertError("Test name is required.");
+      return;
+    }
     setIsInserting(true);
     setInsertError("");
     setInsertSuccess(false);
 
     try {
-      const supabase = createClient();
-
-      // Insert questions into the practice-tests table
-      const { error: supabaseError } = await supabase
-        .from("practice-tests")
-        .insert(
-          questions.map((q) => ({
-            question: q.question,
-            options: q.options,
-            answer: q.answer,
-            explanation: q.explanation,
-          })),
-        );
-
-      if (supabaseError) {
-        console.log(supabaseError);
-        throw supabaseError;
+      // Get all tests from localStorage
+      const allTests = JSON.parse(
+        localStorage.getItem("practiceTests") || "{}",
+      );
+      if (allTests[title.trim()]) {
+        setInsertError("A test with this name already exists.");
+        setIsInserting(false);
+        return;
       }
-
+      // Save new test
+      allTests[title.trim()] = questions;
+      localStorage.setItem("practiceTests", JSON.stringify(allTests));
       setInsertSuccess(true);
-
-      // Clear the page after successful insertion
       setTimeout(() => {
+        setTitle("");
         setJsonInput("");
         setQuestions(null);
         setInsertSuccess(false);
         setInsertError("");
-      }, 2000); // Clear after 2 seconds to show success message
+      }, 2000);
     } catch (err) {
       setInsertError(
-        err instanceof Error ? err.message : "Failed to insert questions",
+        err instanceof Error ? err.message : "Failed to save questions",
       );
     } finally {
       setIsInserting(false);
@@ -103,6 +103,23 @@ export default function CreatePracticeTest() {
   return (
     <div className={styles.container}>
       <h1 className={styles.title}>Create a Practice Test</h1>
+
+      <label
+        htmlFor="test-title"
+        className={styles.instructions}
+        style={{ display: "block", marginBottom: 8 }}
+      >
+        Test Name:
+      </label>
+      <input
+        id="test-title"
+        type="text"
+        value={title}
+        onChange={handleTitleChange}
+        className={styles.textarea}
+        placeholder="Enter test name..."
+        style={{ marginBottom: 16 }}
+      />
 
       <p className={styles.instructions}>Paste your questions JSON below:</p>
 
@@ -144,11 +161,11 @@ export default function CreatePracticeTest() {
           ))}
           <div className={styles.buttonRow} style={{ marginTop: 16 }}>
             <button
-              onClick={handleInsertToSupabase}
+              onClick={handleSaveToLocalStorage}
               disabled={isInserting}
               className={styles.validateButton}
             >
-              {isInserting ? "Inserting..." : "Insert to Supabase"}
+              {isInserting ? "Saving..." : "Save to LocalStorage"}
             </button>
           </div>
           {insertSuccess && (
@@ -156,7 +173,7 @@ export default function CreatePracticeTest() {
               className={styles.success}
               style={{ color: "green", marginTop: 8 }}
             >
-              Successfully inserted {questions.length} questions into Supabase!
+              Saved {questions.length} questions into LocalStorage!
             </div>
           )}
           {insertError && (

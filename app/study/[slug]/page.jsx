@@ -4,17 +4,6 @@ import { useEffect, useState } from "react";
 import { useParams } from "next/navigation";
 import styles from "../study.module.css";
 
-const quizMap = {
-  sql: {
-    file: "sqlQuestions.json",
-    name: "SQL",
-  },
-  "prompt-samples": {
-    file: "promptSamples.json",
-    name: "Prompt Samples",
-  },
-};
-
 export default function StudyQuiz() {
   const { slug } = useParams();
   const [questions, setQuestions] = useState([]);
@@ -28,13 +17,11 @@ export default function StudyQuiz() {
   const [shuffledOptions, setShuffledOptions] = useState([]);
 
   useEffect(() => {
-    async function loadQuestions() {
-      const quiz = quizMap[slug];
-      if (!quiz) return;
-      const data = await import(`@/lib/${quiz.file}`);
-      setQuestions(data.default || data);
-    }
-    loadQuestions();
+    // Decode the slug to get the test name
+    const testName = decodeURIComponent(slug);
+    const allTests = JSON.parse(localStorage.getItem("practiceTests") || "{}");
+    const testQuestions = allTests[testName] || [];
+    setQuestions(testQuestions);
   }, [slug]);
 
   const currentQuestion = questions[currentIndex];
@@ -101,18 +88,20 @@ export default function StudyQuiz() {
     setSelectedAnswer(null);
     setShowExplanation(false);
     setIsCorrect(null);
-    setQuestions([]);
-    // reload questions
-    const quiz = quizMap[slug];
-    if (quiz) {
-      import(`@/lib/${quiz.file}`).then((data) => {
-        setQuestions(data.default || data);
-      });
-    }
+    // reload questions from localStorage using decoded test name
+    const testName = decodeURIComponent(slug);
+    const allTests = JSON.parse(localStorage.getItem("practiceTests") || "{}");
+    const testQuestions = allTests[testName] || [];
+    setQuestions(testQuestions);
   };
 
-  if (!quizMap[slug]) {
-    return <div className={styles.app}>Quiz not found.</div>;
+  // If no questions found for this test
+  if (!questions || questions.length === 0) {
+    return (
+      <div className={styles.app}>
+        Quiz not found or no questions available.
+      </div>
+    );
   }
 
   if (questions.length === 0) {
