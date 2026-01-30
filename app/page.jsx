@@ -1,7 +1,17 @@
 import Link from "next/link";
+import { createClient } from "@/utils/supabase/client";
 import styles from "./Home.module.css";
 
-export default function Home() {
+export default async function Home() {
+  const supabase = createClient();
+  const { data, error } = await supabase.from("practice-tests").select("*");
+
+  if (error) {
+    return <div>Error: {error.message}</div>;
+  }
+
+  console.log("Fetched practice tests:", data);
+
   return (
     <div className={styles.dashboard}>
       <h1 className={styles.dashboardTitle}>Dashboard</h1>
