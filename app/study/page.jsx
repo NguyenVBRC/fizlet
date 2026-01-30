@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import questionsData from "@/lib/sqlQuestions.json";
+import styles from "./study.module.css";
 
 export default function Home() {
   const [questions, setQuestions] = useState([]);
@@ -92,16 +93,16 @@ export default function Home() {
   };
 
   if (questions.length === 0) {
-    return <div className="app">Loading questions...</div>;
+    return <div className={styles.app}>Loading questions...</div>;
   }
 
   if (isComplete) {
     return (
-      <div className="app">
-        <div className="card">
+      <div className={styles.app}>
+        <div className={styles.card}>
           <h1>🎉 Quiz Complete!</h1>
           <p>You've finished all the questions!</p>
-          <button className="btn btn-primary" onClick={restartQuiz}>
+          <button className={"btn btn-primary"} onClick={restartQuiz}>
             Restart Quiz
           </button>
         </div>
@@ -110,25 +111,25 @@ export default function Home() {
   }
 
   return (
-    <div className="app">
-      <div className="card">
-        <div className="header">
-          <div className="progress-info">
-            <span className="progress-text">
+    <div className={styles.app}>
+      <div className={styles.card}>
+        <div className={styles.header}>
+          <div className={styles.progressInfo}>
+            <span className={styles.progressText}>
               Question {currentIndex + 1} of {questions.length}
               {isReviewing && (
-                <span className="review-badge"> (Review Mode)</span>
+                <span className={styles.reviewBadge}> (Review Mode)</span>
               )}
             </span>
             {wrongQuestions.length > 0 && !isReviewing && (
-              <span className="wrong-count">
+              <span className={styles.wrongCount}>
                 {wrongQuestions.length} to review
               </span>
             )}
           </div>
-          <div className="progress-bar">
+          <div className={styles.progressBar}>
             <div
-              className="progress-fill"
+              className={styles.progressFill}
               style={{
                 width: `${((currentIndex + 1) / questions.length) * 100}%`,
               }}
@@ -136,21 +137,21 @@ export default function Home() {
           </div>
         </div>
 
-        <div className="question-section">
-          <h2 className="question">{currentQuestion.question}</h2>
+        <div className={styles.questionSection}>
+          <h2 className={styles.question}>{currentQuestion.question}</h2>
         </div>
 
-        <div className="options-section">
+        <div className={styles.optionsSection}>
           {shuffledOptions.map((option, index) => {
-            let buttonClass = "option-btn";
+            let buttonClass = styles.optionBtn;
 
             if (selectedAnswer) {
               if (option === currentQuestion.answer) {
-                buttonClass += " correct";
+                buttonClass += " " + styles.correct;
               } else if (option === selectedAnswer && !isCorrect) {
-                buttonClass += " incorrect";
+                buttonClass += " " + styles.incorrect;
               } else {
-                buttonClass += " disabled";
+                buttonClass += " " + styles.disabled;
               }
             }
 
@@ -169,9 +170,15 @@ export default function Home() {
 
         {showExplanation && (
           <div
-            className={`explanation ${isCorrect ? "correct-explanation" : "incorrect-explanation"}`}
+            className={
+              styles.explanation +
+              " " +
+              (isCorrect
+                ? styles.correctExplanation
+                : styles.incorrectExplanation)
+            }
           >
-            <div className="explanation-header">
+            <div className={styles.explanationHeader}>
               {isCorrect ? "✓ Correct!" : "✗ Incorrect"}
             </div>
             <p>
@@ -182,7 +189,7 @@ export default function Home() {
                 </span>
               ))}
             </p>
-            <button className="btn btn-next" onClick={handleNext}>
+            <button className={"btn btn-next"} onClick={handleNext}>
               {currentIndex < questions.length - 1 ? "Next Question" : "Finish"}
             </button>
           </div>
