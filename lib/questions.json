@@ -1,0 +1,271 @@
+[
+  {
+    "question": "Which property specifies an expression on one or more columns of a table?",
+    "options": ["UNIQUE", "CASCADE", "CHECK", "RESTRICT"],
+    "answer": "CHECK",
+    "explanation": "The CHECK property specifies an expression on one or more columns of a table.",
+    "example": "CHECK (Age >= 18)"
+  },
+  {
+    "question": "Which SQL function returns the current date in YYYY-MM-DD?",
+    "options": ["NOW()", "CURDATE()", "GETDATE()", "CURRENT_TIME"],
+    "answer": "CURDATE()",
+    "explanation": "CURDATE() returns the current date in YYYY-MM-DD format.",
+    "example": "SELECT CURDATE()"
+  },
+  {
+    "question": "Which SQL keyword is used to combine rows based on the same column values?",
+    "options": ["ORDER BY", "GROUP BY", "GROUPED", "HAVING"],
+    "answer": "GROUP BY",
+    "explanation": "GROUP BY combines rows based on the same column values.",
+    "example": "SELECT Department, COUNT(*) FROM Employees GROUP BY Department"
+  },
+  {
+    "question": "What is the function of the unary - operator?",
+    "options": [
+      "Negates a numeric value",
+      "Performs subtraction between two columns",
+      "Concatenates strings",
+      "Increments a numeric value"
+    ],
+    "answer": "Negates a numeric value",
+    "explanation": "The unary - operator negates a numeric value.",
+    "example": "SELECT -Salary FROM Employees"
+  },
+  {
+    "question": "Which SQL keyword is used to find string values that match a specified pattern?",
+    "options": ["MATCH", "LIKE", "WHERE", "PATTERN"],
+    "answer": "LIKE",
+    "explanation": "LIKE finds string values that match a specified pattern.",
+    "example": "SELECT * FROM Customers WHERE Name LIKE 'J%'"
+  },
+  {
+    "question": "Which SQL function calculates the total of numeric values in a column?",
+    "options": ["SUM()", "AVG()", "COUNT()", "MAX()"],
+    "answer": "SUM()",
+    "explanation": "SUM() calculates the total of numeric values in a column.",
+    "example": "SELECT SUM(Salary) FROM Employees"
+  },
+  {
+    "question": "Which expression can be used to create a temporary name for a table?",
+    "options": ["AS", "ALIAS", "TEMP", "RENAME"],
+    "answer": "AS",
+    "explanation": "AS creates a temporary name (alias) for a table.",
+    "example": "SELECT * FROM Employees AS E"
+  },
+  {
+    "question": "Which wildcard character represents zero or more characters when using LIKE?",
+    "options": ["_", "%", "*", "?"],
+    "answer": "%",
+    "explanation": "% represents zero or more characters.",
+    "example": "SELECT * FROM Customers WHERE Name LIKE 'Jo%'"
+  },
+  {
+    "question": "What happens when a column in SELECT is neither included in GROUP BY nor used in an aggregate function?",
+    "options": [
+      "It is ignored",
+      "SQL returns an error",
+      "It defaults to NULL",
+      "It is automatically aggregated"
+    ],
+    "answer": "SQL returns an error",
+    "explanation": "Columns not in GROUP BY or aggregated cause an error.",
+    "example": "SELECT author, title, COUNT(*) FROM Book GROUP BY author"
+  },
+  {
+    "question": "How do WHERE and HAVING clauses differ in a join?",
+    "options": [
+      "WHERE filters after aggregation, HAVING before",
+      "WHERE filters before aggregation, HAVING after",
+      "Both filter before aggregation",
+      "Both filter after aggregation"
+    ],
+    "answer": "WHERE filters before aggregation, HAVING after",
+    "explanation": "WHERE filters rows before grouping, HAVING filters after aggregation.",
+    "example": "SELECT Department, COUNT(*) FROM Employees WHERE Status='Active' GROUP BY Department HAVING COUNT(*) > 5"
+  },
+  {
+    "question": "Which constraint propagates modifications made to primary keys to foreign keys?",
+    "options": ["RESTRICT", "CASCADE", "CHECK", "UNIQUE"],
+    "answer": "CASCADE",
+    "explanation": "CASCADE propagates primary key changes to foreign keys.",
+    "example": "ON UPDATE CASCADE updates CustomerID in Orders when CustomerID changes in Customers."
+  },
+  {
+    "question": "What type of key can be simple or composite?",
+    "options": ["Primary key", "Foreign key", "Candidate key", "Secondary key"],
+    "answer": "Primary key",
+    "explanation": "A primary key can be simple (one column) or composite (multiple columns).",
+    "example": "PRIMARY KEY (OrderID) or PRIMARY KEY (OrderID, ProductID)."
+  },
+  {
+    "question": "Which term is both unique and minimal?",
+    "options": ["Primary key", "Candidate key", "Foreign key", "Composite key"],
+    "answer": "Candidate key",
+    "explanation": "A candidate key is unique and minimal.",
+    "example": "In Users table, both UserID and Email could be candidate keys."
+  },
+  {
+    "question": "How is an attribute defined in an ER model?",
+    "options": [
+      "A relationship",
+      "A property of an entity",
+      "A key",
+      "A table"
+    ],
+    "answer": "A property of an entity",
+    "explanation": "An attribute is a property of an entity or relationship.",
+    "example": "Name and DateOfBirth are attributes of Employee."
+  },
+  {
+    "question": "What is the role of a data dictionary in an ER model?",
+    "options": [
+      "Stores data",
+      "Stores metadata about entities, attributes, relationships",
+      "Enforces constraints",
+      "Generates queries"
+    ],
+    "answer": "Stores metadata about entities, attributes, relationships",
+    "explanation": "A data dictionary records metadata.",
+    "example": "It lists Employee entity with attributes EmployeeID (integer) and Name (string)."
+  },
+  {
+    "question": "What scenario represents a unary relationship in an ER model?",
+    "options": [
+      "Entity related to itself",
+      "Two entities related",
+      "Three entities related",
+      "No relationship"
+    ],
+    "answer": "Entity related to itself",
+    "explanation": "A unary relationship is when an entity relates to itself.",
+    "example": "Employee manages other Employees."
+  },
+  {
+    "question": "What relationship exists between a supertype and its subtype entities?",
+    "options": [
+      "IS-A (generalization/specialization)",
+      "One-to-one",
+      "Many-to-many",
+      "Aggregation"
+    ],
+    "answer": "IS-A (generalization/specialization)",
+    "explanation": "Supertype-subtype relationships are IS-A.",
+    "example": "Vehicle (supertype) and Car/Truck (subtypes)."
+  },
+  {
+    "question": "What does cardinality define in an ER model?",
+    "options": [
+      "Mandatory participation",
+      "Number of instances associated",
+      "Data type",
+      "Key attribute"
+    ],
+    "answer": "Number of instances associated",
+    "explanation": "Cardinality defines how many instances of one entity relate to another.",
+    "example": "A Customer can have many Orders (1:N)."
+  },
+  {
+    "question": "What does modality define?",
+    "options": [
+      "Mandatory or optional participation",
+      "Data type",
+      "Relationship type",
+      "Primary key"
+    ],
+    "answer": "Mandatory or optional participation",
+    "explanation": "Modality defines whether an entity’s participation is mandatory or optional.",
+    "example": "A student may not have a locker."
+  },
+  {
+    "question": "What does a short bar across a relationship line indicate?",
+    "options": [
+      "Optional participation",
+      "Mandatory participation",
+      "One-to-one",
+      "Aggregation"
+    ],
+    "answer": "Mandatory participation",
+    "explanation": "A short bar indicates mandatory participation.",
+    "example": "Every Order must be linked to a Customer."
+  },
+  {
+    "question": "What is referential integrity?",
+    "options": [
+      "Ensures foreign key matches primary key",
+      "Ensures primary key uniqueness",
+      "Ensures non-null values",
+      "Ensures data type correctness"
+    ],
+    "answer": "Ensures foreign key matches primary key",
+    "explanation": "Referential integrity ensures foreign keys match existing primary keys.",
+    "example": "Order.CustomerID must exist in Customer.CustomerID."
+  },
+  {
+    "question": "Which strategy can be used to find primary keys?",
+    "options": [
+      "Index analysis",
+      "Candidate key analysis",
+      "Foreign key analysis",
+      "Data type check"
+    ],
+    "answer": "Candidate key analysis",
+    "explanation": "Candidate key analysis identifies columns that are unique and minimal.",
+    "example": "UserID or Email could be primary keys."
+  },
+  {
+    "question": "What should be used to store intersection data from many-to-many relationships?",
+    "options": ["Junction table", "Foreign key", "Primary key", "View"],
+    "answer": "Junction table",
+    "explanation": "A junction table stores many-to-many intersections.",
+    "example": "StudentCourse table with StudentID and CourseID."
+  },
+  {
+    "question": "What is a ternary relationship?",
+    "options": [
+      "Relationship involving three entities",
+      "Relationship involving one entity",
+      "Relationship involving two entities",
+      "Optional relationship"
+    ],
+    "answer": "Relationship involving three entities",
+    "explanation": "A ternary relationship involves three entities.",
+    "example": "Supplier, Part, and Project linked in a Supplies relationship."
+  },
+  {
+    "question": "Which term is used interchangeably with a secondary index?",
+    "options": [
+      "Non-clustered index",
+      "Primary key",
+      "Unique key",
+      "Clustered index"
+    ],
+    "answer": "Non-clustered index",
+    "explanation": "A non-clustered index is used interchangeably with a secondary index.",
+    "example": "Indexing LastName in Employees table."
+  },
+  {
+    "question": "What is a single-level index in a database?",
+    "options": [
+      "Index with multiple pointer levels",
+      "Index with one level of pointers",
+      "Clustered index",
+      "Composite key"
+    ],
+    "answer": "Index with one level of pointers",
+    "explanation": "A single-level index maps keys directly to data records.",
+    "example": "An index on EmployeeID pointing to each row."
+  },
+  {
+    "question": "How does a database optimize query execution if the filter factor is high?",
+    "options": [
+      "Uses index scan",
+      "Uses full table scan",
+      "Uses join elimination",
+      "Uses caching"
+    ],
+    "answer": "Uses full table scan",
+    "explanation": "If the filter factor is high, a full table scan is often faster than using an index.",
+    "example": "SELECT * FROM Orders WHERE Status IN ('Shipped', 'Delivered');"
+  }
+]
