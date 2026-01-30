@@ -1,0 +1,244 @@
+[
+  {
+    "question": "Which property specifies an expression on one or more columns of a table?",
+    "options": ["UNIQUE", "CASCADE", "CHECK", "RESTRICT"],
+    "answer": "CHECK",
+    "explanation": "CHECK lets you set conditions on column values to enforce data integrity.\nUNIQUE ensures all values are different, but does not check expressions.\nCASCADE is for referential actions, not for column expressions.\nRESTRICT prevents changes that break relationships, not for column expressions."
+  },
+  {
+    "question": "Which SQL function returns the current date in YYYY-MM-DD?",
+    "options": ["NOW()", "CURDATE()", "GETDATE()", "CURRENT_TIME"],
+    "answer": "CURDATE()",
+    "explanation": "CURDATE() returns the current date in YYYY-MM-DD format.\nNOW() and GETDATE() return both date and time, not just the date.\nCURRENT_TIME gives only the time, not the date."
+  },
+  {
+    "question": "Which SQL keyword is used to combine rows based on the same column values?",
+    "options": ["ORDER BY", "GROUP BY", "GROUPED", "HAVING"],
+    "answer": "GROUP BY",
+    "explanation": "GROUP BY groups rows with the same column values for aggregation.\nORDER BY sorts results but does not group.\nGROUPED is not a SQL keyword.\nHAVING filters groups after grouping, not for combining rows."
+  },
+  {
+    "question": "What is the function of the unary - operator?",
+    "options": [
+      "Negates a numeric value",
+      "Performs subtraction between two columns",
+      "Concatenates strings",
+      "Increments a numeric value"
+    ],
+    "answer": "Negates a numeric value",
+    "explanation": "The unary - operator negates a numeric value.\nSubtraction requires two operands, not one.\nConcatenation joins strings, not numbers.\nIncrement increases a value by one, not negates."
+  },
+  {
+    "question": "Which SQL keyword is used to find string values that match a specified pattern?",
+    "options": ["MATCH", "LIKE", "WHERE", "PATTERN"],
+    "answer": "LIKE",
+    "explanation": "LIKE is used to match string patterns in SQL.\nMATCH is not standard SQL for pattern matching.\nWHERE filters rows but does not match patterns.\nPATTERN is not a SQL keyword for pattern matching."
+  },
+  {
+    "question": "Which SQL function calculates the total of numeric values in a column?",
+    "options": ["SUM()", "AVG()", "COUNT()", "MAX()"],
+    "answer": "SUM()",
+    "explanation": "SUM() adds up all numeric values in a column.\nAVG() calculates the average, not the total.\nCOUNT() counts rows, not totals.\nMAX() finds the highest value, not the sum."
+  },
+  {
+    "question": "Which expression can be used to create a temporary name for a table?",
+    "options": ["AS", "ALIAS", "TEMP", "RENAME"],
+    "answer": "AS",
+    "explanation": "AS gives a temporary name (alias) to a table or column.\nALIAS, TEMP, and RENAME are not valid SQL keywords for creating aliases."
+  },
+  {
+    "question": "Which wildcard character represents zero or more characters when using LIKE?",
+    "options": ["_", "%", "*", "?"],
+    "answer": "%",
+    "explanation": "% matches zero or more characters in LIKE patterns.\n_ matches a single character, not multiple.\n* and ? are not SQL wildcards in standard SQL."
+  },
+  {
+    "question": "What happens when a column in SELECT is neither included in GROUP BY nor used in an aggregate function?",
+    "options": [
+      "It is ignored",
+      "SQL returns an error",
+      "It defaults to NULL",
+      "It is automatically aggregated"
+    ],
+    "answer": "SQL returns an error",
+    "explanation": "SQL returns an error if a column in SELECT is not in GROUP BY or an aggregate function.\nThe other options do not reflect actual SQL behavior for this scenario."
+  },
+  {
+    "question": "How do WHERE and HAVING clauses differ in a join?",
+    "options": [
+      "WHERE filters after aggregation, HAVING before",
+      "WHERE filters before aggregation, HAVING after",
+      "Both filter before aggregation",
+      "Both filter after aggregation"
+    ],
+    "answer": "WHERE filters before aggregation, HAVING after",
+    "explanation": "WHERE filters rows before grouping, HAVING filters after aggregation.\nOther options do not match SQL's order of operations for filtering."
+  },
+  {
+    "question": "Which constraint propagates modifications made to primary keys to foreign keys?",
+    "options": ["RESTRICT", "CASCADE", "CHECK", "UNIQUE"],
+    "answer": "CASCADE",
+    "explanation": "CASCADE updates foreign keys when a related primary key changes.\nRESTRICT blocks changes that would break relationships, but does not update foreign keys.\nCHECK validates data values, not for propagating changes.\nUNIQUE ensures all values are different, not for propagating changes."
+  },
+  {
+    "question": "What type of key can be simple or composite?",
+    "options": ["Primary key", "Foreign key", "Candidate key", "Secondary key"],
+    "answer": "Primary key",
+    "explanation": "A primary key uniquely identifies each row and can be simple (one column) or composite (multiple columns).\nForeign key links to a primary key in another table, but is not used for unique identification and is not described as simple or composite.\nCandidate key is a column or set of columns that could be a primary key, but the term does not specify simple or composite.\nSecondary key is used for indexing/searching, not for unique identification, and is not described as simple or composite."
+  },
+  {
+    "question": "Which term is both unique and minimal?",
+    "options": ["Primary key", "Candidate key", "Foreign key", "Composite key"],
+    "answer": "Candidate key",
+    "explanation": "A candidate key is a column or set of columns that is unique and minimal for identifying rows.\nPrimary key is a chosen candidate key used for unique identification, but not all candidate keys are chosen.\nForeign key links to a primary key in another table, but does not uniquely identify rows in its own table.\nComposite key is any key made of multiple columns, but may not be minimal or unique."
+  },
+  {
+    "question": "How is an attribute defined in an ER model?",
+    "options": [
+      "A relationship",
+      "A property of an entity",
+      "A key",
+      "A table"
+    ],
+    "answer": "A property of an entity",
+    "explanation": "An attribute is a property of an entity in an ER model, describing characteristics.\nA relationship is a connection between entities, not a property.\nA key is used for identification, not for describing properties.\nA table is a collection of entities, not a property."
+  },
+  {
+    "question": "What is the role of a data dictionary in an ER model?",
+    "options": [
+      "Stores data",
+      "Stores metadata about entities, attributes, relationships",
+      "Enforces constraints",
+      "Generates queries"
+    ],
+    "answer": "Stores metadata about entities, attributes, relationships",
+    "explanation": "A data dictionary stores metadata about entities, attributes, and relationships.\nStoring data is the function of tables.\nEnforcing constraints is done by rules like CHECK or UNIQUE.\nGenerating queries is done by users or applications, not the data dictionary."
+  },
+  {
+    "question": "What scenario represents a unary relationship in an ER model?",
+    "options": [
+      "Entity related to itself",
+      "Two entities related",
+      "Three entities related",
+      "No relationship"
+    ],
+    "answer": "Entity related to itself",
+    "explanation": "A unary relationship is when an entity relates to itself, such as an employee managing another employee.\nTwo or three entities related are binary or ternary relationships.\nNo relationship means no connection."
+  },
+  {
+    "question": "What relationship exists between a supertype and its subtype entities?",
+    "options": [
+      "IS-A (generalization/specialization)",
+      "One-to-one",
+      "Many-to-many",
+      "Aggregation"
+    ],
+    "answer": "IS-A (generalization/specialization)",
+    "explanation": "A supertype-subtype relationship is an IS-A relationship, meaning the subtype inherits from the supertype.\nOne-to-one, many-to-many, and aggregation are different types of relationships, not IS-A."
+  },
+  {
+    "question": "What does cardinality define in an ER model?",
+    "options": [
+      "Mandatory participation",
+      "Number of instances associated",
+      "Data type",
+      "Key attribute"
+    ],
+    "answer": "Number of instances associated",
+    "explanation": "Cardinality defines the number of instances of one entity related to another (e.g., one-to-many).\nMandatory participation is about whether an entity must participate.\nData type and key attribute are not about relationships between instances."
+  },
+  {
+    "question": "What does modality define?",
+    "options": [
+      "Mandatory or optional participation",
+      "Data type",
+      "Relationship type",
+      "Primary key"
+    ],
+    "answer": "Mandatory or optional participation",
+    "explanation": "Modality defines if participation is mandatory or optional in a relationship.\nData type and key attribute are about structure, not participation.\nRelationship type is about the nature of the connection, not participation."
+  },
+  {
+    "question": "What does a short bar across a relationship line indicate?",
+    "options": [
+      "Optional participation",
+      "Mandatory participation",
+      "One-to-one",
+      "Aggregation"
+    ],
+    "answer": "Mandatory participation",
+    "explanation": "A short bar across a relationship line means mandatory participation in ER diagrams.\nOptional participation is shown differently.\nOne-to-one and aggregation are not indicated by a short bar."
+  },
+  {
+    "question": "What is referential integrity?",
+    "options": [
+      "Ensures foreign key matches primary key",
+      "Ensures primary key uniqueness",
+      "Ensures non-null values",
+      "Ensures data type correctness"
+    ],
+    "answer": "Ensures foreign key matches primary key",
+    "explanation": "Referential integrity ensures a foreign key matches an existing primary key, maintaining valid links.\nPrimary key uniqueness is about unique identification.\nNon-null values are enforced by NOT NULL.\nData type correctness is enforced by column types."
+  },
+  {
+    "question": "Which strategy can be used to find primary keys?",
+    "options": [
+      "Index analysis",
+      "Candidate key analysis",
+      "Foreign key analysis",
+      "Data type check"
+    ],
+    "answer": "Candidate key analysis",
+    "explanation": "Candidate key analysis identifies columns that are unique and minimal for primary keys.\nIndex analysis is for performance, not uniqueness.\nForeign key analysis is for relationships, not uniqueness.\nData type check is for structure, not uniqueness."
+  },
+  {
+    "question": "What should be used to store intersection data from many-to-many relationships?",
+    "options": ["Junction table", "Foreign key", "Primary key", "View"],
+    "answer": "Junction table",
+    "explanation": "A junction table stores intersection data for many-to-many relationships.\nForeign key is for linking tables, not storing intersections.\nPrimary key is for unique identification, not intersections.\nView is a virtual table, not for storing data."
+  },
+  {
+    "question": "What is a ternary relationship?",
+    "options": [
+      "Relationship involving three entities",
+      "Relationship involving one entity",
+      "Relationship involving two entities",
+      "Optional relationship"
+    ],
+    "answer": "Relationship involving three entities",
+    "explanation": "A ternary relationship involves three entities in a single relationship.\nOther options involve fewer entities or are not relationships."
+  },
+  {
+    "question": "Which term is used interchangeably with a secondary index?",
+    "options": [
+      "Non-clustered index",
+      "Primary key",
+      "Unique key",
+      "Clustered index"
+    ],
+    "answer": "Non-clustered index",
+    "explanation": "A non-clustered index is also called a secondary index, used for fast lookups.\nPrimary key and unique key enforce uniqueness, not secondary indexing.\nClustered index determines row order, not secondary indexing."
+  },
+  {
+    "question": "What is a single-level index in a database?",
+    "options": [
+      "Index with multiple pointer levels",
+      "Index with one level of pointers",
+      "Clustered index",
+      "Composite key"
+    ],
+    "answer": "Index with one level of pointers",
+    "explanation": "A single-level index has one level of pointers to data for direct access.\nMultiple pointer levels describe multi-level indexes.\nClustered index organizes data rows, not pointer levels.\nComposite key is about multiple columns, not index structure."
+  },
+  {
+    "question": "How does a database optimize query execution if the filter factor is high?",
+    "options": [
+      "Uses index scan",
+      "Uses full table scan",
+      "Uses join elimination",
+      "Uses caching"
+    ],
+    "answer": "Uses full table scan",
+    "explanation": "If the filter factor is high, a full table scan is usually faster than using an index because most rows are needed.\nIndex scan is better for selective queries.\nJoin elimination and caching are not typical optimizations for high filter factor."
+  }
+]

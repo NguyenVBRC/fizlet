@@ -1,0 +1,23 @@
+[
+  {
+    "question": "Which property specifies an expression on one or more columns of a table?",
+    "options": ["UNIQUE", "CASCADE", "CHECK", "RESTRICT"],
+    "answer": "CHECK",
+    "explanation": "The CHECK property lets you set conditions on column values.\nUNIQUE ensures all values are different.\nCASCADE is for referential actions.\nRESTRICT prevents changes that break relationships.",
+    "example": "CHECK (Age >= 18)"
+  },
+  {
+    "question": "Which SQL function returns the current date in YYYY-MM-DD?",
+    "options": ["NOW()", "CURDATE()", "GETDATE()", "CURRENT_TIME"],
+    "answer": "CURDATE()",
+    "explanation": "CURDATE() returns the current date in YYYY-MM-DD format.\nNOW() and GETDATE() return both date and time.\nCURRENT_TIME gives only the time part.",
+    "example": "SELECT CURDATE()"
+  },
+  {
+    "question": "Which SQL keyword is used to combine rows based on the same column values?",
+    "options": ["ORDER BY", "GROUP BY", "GROUPED", "HAVING"],
+    "answer": "GROUP BY",
+    "explanation": "GROUP BY groups rows with the same column values.\nORDER BY sorts results.\nGROUPED is not a SQL keyword.\nHAVING filters groups after grouping.",
+    "example": "SELECT Department, COUNT(*) FROM Employees GROUP BY Department"
+  }
+]

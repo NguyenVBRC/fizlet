@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import questionsData from "@/lib/questions.json";
+import questionsData from "@/lib/sqlQuestions.json";
 
 export default function Home() {
   const [questions, setQuestions] = useState([]);
@@ -174,8 +174,14 @@ export default function Home() {
             <div className="explanation-header">
               {isCorrect ? "✓ Correct!" : "✗ Incorrect"}
             </div>
-            <p>{currentQuestion.explanation}</p>
-            <p>{currentQuestion.example}</p>
+            <p>
+              {currentQuestion.explanation.split("\n").map((line, idx) => (
+                <span key={idx}>
+                  {line}
+                  <br />
+                </span>
+              ))}
+            </p>
             <button className="btn btn-next" onClick={handleNext}>
               {currentIndex < questions.length - 1 ? "Next Question" : "Finish"}
             </button>

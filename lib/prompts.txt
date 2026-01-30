@@ -1,0 +1,8 @@
+When explaining a correct answer, always refer to the question context.
+For each option, briefly state why it is or isn’t the correct answer.
+Use clear, general language that makes sense even out of context.
+Separate each explanation for options with a line break (\n) for readability.
+Keep explanations short, direct, and focused on the key difference between options.
+Avoid ambiguous or context-dependent wording in explanations.
+When updating explanations, ensure consistency in format and clarity across all entries.
+Explanations should state what the correct answer is and why each wrong answer is incorrect in the context of the question.
