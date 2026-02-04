@@ -4,6 +4,27 @@ import { useRouter, useParams } from "next/navigation";
 import { useEffect, useState } from "react";
 
 export default function EditTestPage() {
+  // Toggle JSON paste form
+  const [showJsonForm, setShowJsonForm] = useState(false);
+  const [jsonInput, setJsonInput] = useState("");
+  const [jsonError, setJsonError] = useState("");
+
+  const handleJsonSubmit = () => {
+    setJsonError("");
+    try {
+      const obj = JSON.parse(jsonInput);
+      if (!obj.question || !obj.options || !obj.answer) {
+        setJsonError("Missing required fields: question, options, answer");
+        return;
+      }
+      const updated = [...questions, obj];
+      saveQuestions(updated);
+      setJsonInput("");
+      setShowJsonForm(false);
+    } catch (e) {
+      setJsonError("Invalid JSON: " + e.message);
+    }
+  };
   const router = useRouter();
   const params = useParams();
 
@@ -122,7 +143,66 @@ export default function EditTestPage() {
       </div>
 
       {/* ---------------- ADD QUESTION FORM ---------------- */}
-      <h2>Add Question</h2>
+      <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
+        <h2 style={{ margin: 0 }}>Add Question</h2>
+        <button
+          style={{
+            fontSize: 13,
+            padding: "4px 10px",
+            borderRadius: 4,
+            border: "1px solid #0070f3",
+            background: showJsonForm ? "#e6f0ff" : "#f7f7f7",
+            color: "#0070f3",
+            cursor: "pointer",
+          }}
+          onClick={() => setShowJsonForm((v) => !v)}
+        >
+          {showJsonForm ? "Hide JSON Paste" : "Paste JSON"}
+        </button>
+      </div>
+
+      {showJsonForm && (
+        <div
+          style={{
+            margin: "16px 0",
+            background: "#f9f9f9",
+            padding: 16,
+            borderRadius: 6,
+            border: "1px solid #eee",
+          }}
+        >
+          <textarea
+            value={jsonInput}
+            onChange={(e) => setJsonInput(e.target.value)}
+            placeholder="Paste question JSON here"
+            style={{
+              width: "100%",
+              minHeight: 120,
+              fontFamily: "monospace",
+              padding: 8,
+              borderRadius: 4,
+              border: "1px solid #ccc",
+            }}
+          />
+          {jsonError && (
+            <div style={{ color: "#c00", marginTop: 4 }}>{jsonError}</div>
+          )}
+          <button
+            onClick={handleJsonSubmit}
+            style={{
+              marginTop: 8,
+              background: "#0070f3",
+              color: "#fff",
+              border: "none",
+              borderRadius: 4,
+              padding: "8px 16px",
+              cursor: "pointer",
+            }}
+          >
+            Add from JSON
+          </button>
+        </div>
+      )}
 
       <input
         value={questionText}
