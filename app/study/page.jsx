@@ -13,6 +13,22 @@ export default function StudyHome() {
     setTests(Object.keys(allTests));
   }, []);
 
+  // Delete test handler
+  const handleDeleteTest = (testName) => {
+    if (
+      window.confirm(
+        `Are you sure you want to delete "${testName}"? This cannot be undone.`,
+      )
+    ) {
+      const allTests = JSON.parse(
+        localStorage.getItem("practiceTests") || "{}",
+      );
+      delete allTests[testName];
+      localStorage.setItem("practiceTests", JSON.stringify(allTests));
+      setTests(Object.keys(allTests));
+    }
+  };
+
   return (
     <div className={styles.app}>
       <div className={styles.quizListContainer}>
@@ -23,15 +39,38 @@ export default function StudyHome() {
               <div
                 key={testName}
                 className={styles.quizCard}
-                onClick={() =>
-                  router.push(`/study/${encodeURIComponent(testName)}`)
-                }
-                style={{ cursor: "pointer" }}
+                style={{ position: "relative" }}
               >
-                <h2 className={styles.quizCardTitle}>{testName}</h2>
-                <p className={styles.quizCardDescription}>
-                  Click to study this test
-                </p>
+                <span
+                  title="Delete test"
+                  style={{
+                    position: "absolute",
+                    top: 8,
+                    right: 12,
+                    cursor: "pointer",
+                    color: "#c00",
+                    fontWeight: "bold",
+                    fontSize: "1.2em",
+                    zIndex: 2,
+                  }}
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    handleDeleteTest(testName);
+                  }}
+                >
+                  ×
+                </span>
+                <div
+                  onClick={() =>
+                    router.push(`/study/${encodeURIComponent(testName)}`)
+                  }
+                  style={{ cursor: "pointer" }}
+                >
+                  <h2 className={styles.quizCardTitle}>{testName}</h2>
+                  <p className={styles.quizCardDescription}>
+                    Click to study this test
+                  </p>
+                </div>
               </div>
             ))
           ) : (
