@@ -60,6 +60,28 @@ export default function StudyHome() {
                 >
                   ×
                 </span>
+                <span
+                  title="Edit test"
+                  style={{
+                    position: "absolute",
+                    top: 8,
+                    right: 36,
+                    cursor: "pointer",
+                    color: "#0070f3",
+                    fontWeight: "bold",
+                    fontSize: "1.1em",
+                    zIndex: 2,
+                    padding: "2px 6px",
+                    borderRadius: "3px",
+                    background: "#f0f4ff",
+                  }}
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    router.push(`/study/${encodeURIComponent(testName)}/edit`);
+                  }}
+                >
+                  ✎
+                </span>
                 <div
                   onClick={() =>
                     router.push(`/study/${encodeURIComponent(testName)}`)
